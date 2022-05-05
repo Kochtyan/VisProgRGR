@@ -1,0 +1,41 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:VisualDataBase.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="600"
+        x:Class="VisualDataBase.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="VisualDataBase" 
+        Width="900" Height="600">
+
+  <SplitView IsPaneOpen="True"
+             DisplayMode="Inline"
+             OpenPaneLength="200">
+
+    <SplitView.Pane>
+      <Grid RowDefinitions="* auto">
+        <Button Click="openNewWindow" Content="Request" Grid.Row="1"/>        
+        
+        <TreeView Grid.Row="0">
+          <TreeView.DataTemplates>
+
+          </TreeView.DataTemplates>
+        </TreeView>
+      </Grid>
+    </SplitView.Pane>
+
+    <Grid RowDefinitions="auto *">
+      <WrapPanel  Grid.Row="0">
+        <Button Content="+" Grid.Row="0"/>
+        <Button Content="-" Grid.Row="0"/>
+        <Button Content="V" Grid.Row="0"/>
+        <Button Content="X" Grid.Row="0"/>
+      </WrapPanel>
+
+
+    </Grid>
+    
+  </SplitView>
+
+</Window>
