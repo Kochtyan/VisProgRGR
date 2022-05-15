@@ -10,6 +10,8 @@ namespace VisualDataBase.Views
             InitializeComponent();
 
         }
+
+
         private void openNewWindow(object sender, RoutedEventArgs e)
         {
             ManagerRequests newWin = new ManagerRequests();

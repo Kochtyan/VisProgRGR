@@ -7,14 +7,25 @@
         Title="ManagerRequests"
         Width="600" Height="400">
 
-  <Grid RowDefinitions="auto *">
+	<Window.Styles>
+		<Style Selector="Button.button2">
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="FontSize" Value="18"/>
+			<Setter Property="Width" Value="50"/>
+			<Setter Property="Height" Value="30"/>
+			<Setter Property="Margin" Value="5"/>
+			<Setter Property="Background" Value="#17376D"/>
+		</Style>
+	</Window.Styles>
+
+  <Grid RowDefinitions="auto *" Background="#13685C">
     <WrapPanel Grid.Row="0">
-      <Button Content="V"/>
-      <Button Content="X"/>
-      <Button Content="B"/>
-      <Button Content="C"/>
-      <Button Content="G"/>
-      <Button Content="P"/>
+      <Button Classes="button2" Content="V"/>
+      <Button Classes="button2" Content="X"/>
+      <Button Classes="button2" Content="B"/>
+      <Button Classes="button2" Content="C"/>
+      <Button Classes="button2" Content="G"/>
+      <Button Classes="button2" Content="P"/>
     </WrapPanel>
   </Grid>
   
