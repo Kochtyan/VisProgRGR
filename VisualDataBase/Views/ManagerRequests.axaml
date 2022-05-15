@@ -8,25 +8,36 @@
         Width="600" Height="400">
 
 	<Window.Styles>
-		<Style Selector="Button.button2">
+		<Style Selector="Button.button3">
 			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="HorizontalAlignment" Value="Stretch"/>
 			<Setter Property="FontSize" Value="18"/>
-			<Setter Property="Width" Value="50"/>
-			<Setter Property="Height" Value="30"/>
-			<Setter Property="Margin" Value="5"/>
+			<Setter Property="Background" Value="#17376D"/>
+			<Setter Property="Foreground" Value="#ceffbc"/>
+		</Style>
+		<Style Selector="Button.button4">
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="HorizontalAlignment" Value="Stretch"/>
+			<Setter Property="FontSize" Value="18"/>
 			<Setter Property="Background" Value="#17376D"/>
 		</Style>
 	</Window.Styles>
+	<SplitView IsPaneOpen="True"
+			   DisplayMode="Inline"
+			   OpenPaneLength="200">
 
-  <Grid RowDefinitions="auto *" Background="#13685C">
-    <WrapPanel Grid.Row="0">
-      <Button Classes="button2" Content="V"/>
-      <Button Classes="button2" Content="X"/>
-      <Button Classes="button2" Content="B"/>
-      <Button Classes="button2" Content="C"/>
-      <Button Classes="button2" Content="G"/>
-      <Button Classes="button2" Content="P"/>
-    </WrapPanel>
-  </Grid>
+		<SplitView.Pane>
+			<Grid Background="#3E7870" ColumnDefinitions="* *" RowDefinitions="* auto">
+				<Button Grid.Row="1" Grid.Column="0" Classes="button3" BorderBrush="#476BA8" BorderThickness="0,0,2,0" Content="Add"/>
+				<Button Grid.Row="1" Grid.Column="1" Classes="button3" Content="Close"/>
+			</Grid>
+		</SplitView.Pane>
+		<Border BorderBrush="#3A9F91" BorderThickness="2,0,0,0">
+			<Grid RowDefinitions="* auto" ColumnDefinitions="* *" Background="#13685C">
+				<Button Grid.Row="1" Grid.Column="0" Classes="button4" BorderBrush="#476BA8" BorderThickness="0,0,2,0" Content="Edit"/>
+				<Button Grid.Row="1" Grid.Column="1" Classes="button4" Content="Clear"/>
+			</Grid>
+		</Border>
+	</SplitView>
   
 </Window>

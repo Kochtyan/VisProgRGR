@@ -3,7 +3,7 @@
         xmlns:vm="using:VisualDataBase.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="600"
+        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="600"
         x:Class="VisualDataBase.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="VisualDataBase" 
@@ -21,10 +21,11 @@
 		  <Style Selector="Button.button2">
 			  <Setter Property="HorizontalContentAlignment" Value="Center"/>
 			  <Setter Property="FontSize" Value="18"/>
-			  <Setter Property="Width" Value="50"/>
+			  <Setter Property="Width" Value="129"/>
 			  <Setter Property="Height" Value="30"/>
 			  <Setter Property="Margin" Value="5"/>
 			  <Setter Property="Background" Value="#17376D"/>
+		  
 		  </Style>
 		  <Style Selector="TextBlock.textblock">
 			  <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -40,10 +41,9 @@
              OpenPaneLength="200">
 
     <SplitView.Pane>
-      <Grid Background="#3E7870" ColumnDefinitions="* *" RowDefinitions="* auto">
-        <Button Click="openNewWindow" Content="Request" Classes="button" Grid.Row="1" Grid.Column="0" BorderBrush="#476BA8" BorderThickness="0,0,2,0"/>        
-        <Button Click="openNewWindow" Content="File" Classes="button" Grid.Row="1" Grid.Column="1"/> 
-        <TreeView Grid.Row="0" Grid.ColumnSpan="1">
+      <Grid Background="#3E7870" RowDefinitions="* auto">
+        <Button Click="openNewWindow" Content="Request" Classes="button" Grid.Row="1" Grid.Column="0" BorderBrush="#476BA8" BorderThickness="0,0,2,0"/>         
+        <TreeView Grid.Row="0">
           <TreeView.DataTemplates>
             
           </TreeView.DataTemplates>
@@ -55,10 +55,11 @@
 		  <Grid Background="#13685C" RowDefinitions="auto auto *" ColumnDefinitions="* * * * *">
 
 			  <WrapPanel  Grid.Row="0" Grid.ColumnSpan="5">
-				  <Button Classes="button2" Content="+" Grid.Row="0"/>
-				  <Button Classes="button2" Content="-" Grid.Row="0"/>
-				  <Button Classes="button2" Content="V" Grid.Row="0"/>
-				  <Button Classes="button2" Content="X" Grid.Row="0"/>
+				  <Button Classes="button2" Content="Player" Grid.Row="0"/>
+				  <Button Classes="button2" Content="Event" Grid.Row="0"/>
+				  <Button Classes="button2" Content="Event result" Grid.Row="0"/>
+				  <Button Classes="button2" Content="Game" Grid.Row="0"/>
+				  <Button Classes="button2" Content="Game result" Grid.Row="0"/>
 			  </WrapPanel>
 			  <Border Grid.Row="1" Background="#17376D" BorderBrush="#476BA8" BorderThickness="0,0,2,0">
 				  <TextBlock Classes="textblock" Grid.Column="0" Grid.Row="1">Title</TextBlock>
