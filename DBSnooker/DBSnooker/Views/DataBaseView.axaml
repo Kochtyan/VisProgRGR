@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="DBSnooker.Views.DataBaseView">
+	
+	<UserControl.Styles>
+		<Style Selector="Button.button">
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="FontSize" Value="18"/>
+			<Setter Property="Foreground" Value="#ceffbc"/>
+			<Setter Property="Background" Value="#17376D"/>
+			<Setter Property="FontFamily" Value="Sylfaen"/>
+		</Style>
+		
+		<Style Selector="Button.button2">
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="FontSize" Value="18"/>
+			<Setter Property="Foreground" Value="#ceffbc"/>
+			<Setter Property="Background" Value="#17376D"/>
+			<Setter Property="FontFamily" Value="Sylfaen"/>
+			<Setter Property="Margin" Value="5"/>
+		</Style>
+		
+		<Style Selector="TextBlock.textblock">
+			<Setter Property="FontFamily" Value="Sylfaen"/>
+			<Setter Property="FontSize" Value="18"/>
+			<Setter Property="Foreground" Value="#ceffbc"/>
+		</Style>
+
+	</UserControl.Styles>
+
+		<Grid Background="#13685C" RowDefinitions="auto *" ColumnDefinitions="* * * *">
+			<WrapPanel  Grid.Row="0" Grid.ColumnSpan="5">
+				<Button Classes="button" Content="Request" Grid.Row="0" Width="150" Command="{Binding $parent[Window].DataContext.OpenRequestManager}"/>
+				<Button Classes="button2" Content="Add" Grid.Row="0" Width="80" Command="{Binding AddItem}" IsVisible="{Binding CurrentTableIsSubtable}"/>
+				<Button Classes="button2" Content="Delete" Grid.Row="0" Width="80" Command="{Binding DeleteItems}" IsVisible="{Binding CurrentTableIsSubtable}"/>
+				<Button Classes="button2" Content="Save" Grid.Row="0" Width="80" Command="{Binding Save}" IsVisible="{Binding CurrentTableIsSubtable}"/>
+			</WrapPanel>
+			<TabControl TabStripPlacement="Left" Grid.ColumnSpan="4" Grid.Row="1" Items="{Binding Tables}" SelectionChanged="SelectedTabChanged">
+				
+				<TabControl.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Classes="textblock" Text="{Binding Title}"/>
+							<Button Content="x" Classes="button" Margin="5" Click="DeleteTab" IsEnabled="{Binding checkTable}"/>
+						</StackPanel>
+					</DataTemplate>
+				</TabControl.ItemTemplate>
+
+				<TabControl.ContentTemplate>
+					<DataTemplate>
+						<UserControl Content="{Binding TableView}"/>
+					</DataTemplate>
+				</TabControl.ContentTemplate>
+			</TabControl>
+
+	</Grid>
+</UserControl>
