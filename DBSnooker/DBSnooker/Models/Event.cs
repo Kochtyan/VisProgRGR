@@ -8,6 +8,13 @@ namespace DBSnooker
         public Event()
         {
             Games = new HashSet<Game>();
+            EventId = 0;
+            Season = "None";
+            EventName = "None";
+            Status = "None";
+            Category = "None";
+            EventCountry = "None";
+            Prize = 0;
         }
 
         public long EventId { get; set; }
@@ -33,6 +40,10 @@ namespace DBSnooker
                 }
                 return null;
             }
+        }
+        public string Key()
+        {
+            return "Event Id";
         }
 
         public virtual ICollection<Game> Games { get; set; }

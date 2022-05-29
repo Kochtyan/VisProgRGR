@@ -12,7 +12,7 @@ using System;
 
 namespace DBSnooker.ViewModels
 {
-    internal class EventTableViewModel : ViewModelBase
+    public class EventTableViewModel : ViewModelBase
     {
         private ObservableCollection<Event> table;
         public ObservableCollection<Event> thisTable

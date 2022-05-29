@@ -5,6 +5,14 @@ namespace DBSnooker
 {
     public partial class Game
     {
+        public Game()
+        {
+            GameId = 0;
+            EventId = 0;
+            PlayerName = "None";
+            Opponent = "None";
+            Stage = "None";
+        }
         public long GameId { get; set; }
         public long? EventId { get; set; }
         public string? PlayerName { get; set; }
@@ -24,6 +32,10 @@ namespace DBSnooker
                 }
                 return null;
             }
+        }
+        public string Key()
+        {
+            return "Game Id";
         }
 
         public virtual Event? Event { get; set; }

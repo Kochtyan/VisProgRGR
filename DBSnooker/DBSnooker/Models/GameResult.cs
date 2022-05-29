@@ -5,6 +5,12 @@ namespace DBSnooker
 {
     public partial class GameResult
     {
+        public GameResult()
+        {
+            GameId = 0;
+            Score1 = 0;
+            Score2 = 0;
+        }
         public long? GameId { get; set; }
         public long? Score1 { get; set; }
         public long? Score2 { get; set; }

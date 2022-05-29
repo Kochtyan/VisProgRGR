@@ -5,6 +5,12 @@ namespace DBSnooker
 {
     public partial class Player
     {
+        public Player()
+        {
+            PlayerId = 0;
+            PlayerName = "None";
+            PlayerCountry = "None";
+        }
         public long PlayerId { get; set; }
         public string PlayerName { get; set; } = null!;
         public string? PlayerCountry { get; set; }
@@ -20,6 +26,10 @@ namespace DBSnooker
                 }
                 return null;
             }
+        }
+        public string Key()
+        {
+            return "Player Id";
         }
     }
 }

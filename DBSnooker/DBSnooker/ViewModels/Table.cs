@@ -12,7 +12,7 @@ using System;
 
 namespace DBSnooker.ViewModels
 {
-    internal class Table
+    public class Table
     {
         private string title;
         public bool checkTable { get; }
@@ -31,12 +31,14 @@ namespace DBSnooker.ViewModels
 
             this.fields = fields;
 
-            tableValues = new List<Dictionary<string, object?>>();  
+            tableValues = new List<Dictionary<string, object?>>();
 
-            dynamic myTable = TableView.getThisTable();
+            dynamic myTable = TableView.getThisTable(); // list of elems of table
 
+            // convert in dictionary
             if (myTable != null)
             {
+                Key = myTable[0].Key();
                 for (int j = 0; j < myTable.Count; j++)
                 {
                     Dictionary<string, object?> tmp = new Dictionary<string, object?>();
@@ -47,11 +49,13 @@ namespace DBSnooker.ViewModels
                     tableValues.Add(tmp);
                 }
             }
+            // if reqtable get her fields
             else if (checkTable)
             {
                 tableValues = TableView.GetRows();
             }
         }
+        public string Key { get; set; }
         public string Title
         {
             get { return title; }

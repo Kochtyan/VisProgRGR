@@ -9,7 +9,6 @@
 		<Style Selector="Button.button">
 			<Setter Property="HorizontalContentAlignment" Value="Center"/>
 			<Setter Property="FontSize" Value="18"/>
-			<Setter Property="Foreground" Value="#ceffbc"/>
 			<Setter Property="Background" Value="#17376D"/>
 			<Setter Property="FontFamily" Value="Sylfaen"/>
 		</Style>

@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DBSnooker.ViewModels
 {
-    internal class DataBaseViewModel : ViewModelBase
+    public class DataBaseViewModel : ViewModelBase
     {
         private ObservableCollection<Table> CollectionTables;
         private ObservableCollection<Table> CollectionAllTables;
@@ -22,7 +22,7 @@ namespace DBSnooker.ViewModels
         private ObservableCollection<Game> CollectionGames;
         private ObservableCollection<GameResult> CollectionGamesResults;
         private ObservableCollection<Player> CollectionPlayers;
-        private bool currentTableIsSubtable;
+        private bool currentTableIsSubtable; // req table?
         public ObservableCollection<Table> Tables
         {
             get => CollectionTables;
@@ -94,29 +94,25 @@ namespace DBSnooker.ViewModels
 
             string[] splitTableInfo = tableInfo.Split("\r\n");
 
-            List<string> fieldlist = new List<string>(splitTableInfo); //
+            List<string> fieldlist = new List<string>(splitTableInfo); 
 
             AllTables = new ObservableCollection<Table>(Tables.ToList());
 
-            CollectionEvents = new ObservableCollection<Event>(DataBase.Events);
-            CollectionGames = new ObservableCollection<Game>(DataBase.Games);
-            CollectionGamesResults = new ObservableCollection<GameResult>(DataBase.GameResults);
-            CollectionPlayers = new ObservableCollection<Player>(DataBase.Players);
 
-/*            DataBase.Events.Load<Event>();
-            Events = DataBase.Events.Local.ToObservableCollection();*/
+            DataBase.Events.Load<Event>();
+            Events = DataBase.Events.Local.ToObservableCollection();
             CollectionTables.Add(new Table("Events", false, new EventTableViewModel(CollectionEvents), searchField("Event", fieldlist)));
 
-/*            DataBase.Games.Load<Game>();
-            Games = DataBase.Games.Local.ToObservableCollection();*/
+            DataBase.Games.Load<Game>();
+            Games = DataBase.Games.Local.ToObservableCollection();
             CollectionTables.Add(new Table("Games", false, new GameTableViewModel(CollectionGames), searchField("Game", fieldlist)));
 
-/*            DataBase.GameResults.Load<GameResult>();
-            GamesResults = DataBase.GameResults.Local.ToObservableCollection();*/
+            DataBase.GameResults.Load<GameResult>();
+            GamesResults = DataBase.GameResults.Local.ToObservableCollection();
             CollectionTables.Add(new Table("GamesResults", false, new GameResultTableViewModel(CollectionGamesResults), searchField("GameResult", fieldlist)));
 
-/*            DataBase.Players.Load<Player>();
-            Players = DataBase.Players.Local.ToObservableCollection();*/
+            DataBase.Players.Load<Player>();
+            Players = DataBase.Players.Local.ToObservableCollection();
             CollectionTables.Add(new Table("Players", false, new PlayerTableViewModel(CollectionPlayers), searchField("Player", fieldlist)));
         }
         public void AddItem()
@@ -156,20 +152,14 @@ namespace DBSnooker.ViewModels
 
         public void DeleteItems()
         {
-            // Выбираем нужную таблицы
             Table currentTable = Tables.Where(table => table.Title == CurrentTableName).ToList()[0];
 
-            // Получаем удаляемые элементы
             List<object>? RemovableItems = currentTable.GetRemovableItems();
 
-            // Помечаем, что идет удаление, чтобы событие DataGrid'a на изменение выбранной строчки не срабатывало
-            currentTable.SetRemoveInProgress(true);
+            currentTable.SetRemoveInProgress(true); // to stop datagrid 
 
-            // Если список удаляемых элементов не пуст
             if (RemovableItems != null && RemovableItems.Count != 0)
             {
-
-                // Выбираем таблицу по имени и удаляем элементы
                 switch (CurrentTableName)
                 {
                     case "Games":

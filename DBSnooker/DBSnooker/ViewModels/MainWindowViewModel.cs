@@ -27,10 +27,10 @@ namespace DBSnooker.ViewModels
         public MainWindowViewModel()
         {
             ViewPage = new DataBaseViewModel();
-            QueryPage = new RequestManagerViewModel();
+            QueryPage = new RequestManagerViewModel(ViewPage, this);
             Page = ViewPage;
         }
-        public void OpenDBViewer()
+        public void OpenDataBaseViewer()
         {
             Page = ViewPage;
         }

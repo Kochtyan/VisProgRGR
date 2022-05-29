@@ -4,10 +4,144 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="DBSnooker.Views.RequestManagerView">
+	
+		<UserControl.Styles>
+			
+		<Style Selector="Button.button">
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="FontSize" Value="18"/>
+			<Setter Property="Background" Value="#17376D"/>
+			<Setter Property="FontFamily" Value="Sylfaen"/>
+		</Style>
+		
+		<Style Selector="Button.button2">
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="FontSize" Value="18"/>
+			<Setter Property="Foreground" Value="#ceffbc"/>
+			<Setter Property="Background" Value="#17376D"/>
+			<Setter Property="FontFamily" Value="Sylfaen"/>
+		</Style>
+			
+			</UserControl.Styles>
 
-	<StackPanel>
-		<TextBlock>In developing...</TextBlock>
-		<Button Command="{Binding $parent[Window].DataContext.OpenDBViewer}">Back to Viewer</Button>
-	</StackPanel>
+<Grid RowDefinitions="*, *, 50, 50, 50" ColumnDefinitions="0.5*, 0.5*, *, 0.5*" Background="#13685C">
+		<Expander Header="From Tables" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center">
+			<ListBox Name="TableList" Items="{Binding Tables}" IsEnabled="{Binding IsBDTableSelected}" SelectionChanged="TableSelected" SelectionMode="Multiple">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding Name}"/>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</Expander>
+		<Expander Header="Select Columns" HorizontalContentAlignment="Center" Grid.Row="0" Grid.Column="1">
+			<ListBox Name="TablesColumnsList" SelectionChanged="ColumnSelected" Width="200" Items="{Binding ColumnList}" SelectionMode="Multiple">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="{Binding}"/>
+						</StackPanel>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</Expander>
+		<Expander Header="With Filter" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" VerticalContentAlignment="Stretch">
+			<Grid RowDefinitions="*, 40" ColumnDefinitions="*">
+				<DataGrid Grid.Row="0" Grid.Column="0" Name="FlterList" Items="{Binding Filters}" CanUserReorderColumns="False">
+					<DataGrid.Columns>
+						<DataGridTemplateColumn Header="AND|OR" Width="*">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<TextBox Text="{Binding BoolOper}" IsReadOnly="True"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<DataGridTemplateColumn Header="Column" Width="*">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<ComboBox Name="FilterColumns" Items="{Binding Columns}" SelectionChanged="ComboBoxSelectChanged" HorizontalAlignment="Stretch"/>
+							</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<DataGridTemplateColumn Header="Condition" Width="*">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<ComboBox Name="FilterOperators" Items="{Binding Operators}" SelectionChanged="ComboBoxSelectChanged" HorizontalAlignment="Stretch"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<DataGridTemplateColumn Header="Value" Width="*">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<TextBox Name="FilterValue" Text="{Binding FilterVal}" Watermark="{Binding Example}" IsEnabled="{Binding IsValueInputSupported}"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+					</DataGrid.Columns>
+				</DataGrid>
+				<Grid Grid.Row="1" Grid.Column="0" RowDefinitions="*" ColumnDefinitions="*, *, *">
+					<Button Name="FilterAND" Classes="button2" IsEnabled="False" Click="AddFilterAND" CommandParameter="Default" Content="AND" Grid.Row="0" Grid.Column="0"/>
+					<Button Name="FilterOR" Classes="button2" IsEnabled="False" Click="AddFilterOR" CommandParameter="Default" Content="OR" Grid.Row="0" Grid.Column="1"/>
+					<Button Name="FilterPop" Classes="button2" IsEnabled="False" Click="PopBackFilter" CommandParameter="Default" Content="PopBack" Grid.Row="0" Grid.Column="2"/>
+				</Grid>
+			</Grid>
+		</Expander>
+		<Expander Header="Group By" Grid.Row="1" Grid.Column="0" ExpandDirection="Up" HorizontalContentAlignment="Center">
+			<ListBox Name="GroupsColumnsList" Items="{Binding SelectedColumns}" SelectionChanged="GroupingColumnSelected"/>
+		</Expander>
+		<Expander Header="With Group Filter" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" VerticalContentAlignment="Stretch" ExpandDirection="Up">
+			<Grid RowDefinitions="*, 40" ColumnDefinitions="*">
+				<DataGrid Grid.Row="0" Grid.Column="0" Name="GroupFlterList" Items="{Binding GroupFilters}" CanUserReorderColumns="False">
+					<DataGrid.Columns>
+						<DataGridTemplateColumn Header="AND|OR" Width="*">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<TextBox Text="{Binding BoolOper}" IsReadOnly="True"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<DataGridTemplateColumn Header="Column" Width="*">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<ComboBox Name="GroupFilterColumns" Items="{Binding Columns}" SelectionChanged="ComboBoxSelectChanged" HorizontalAlignment="Stretch"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<DataGridTemplateColumn Header="Condition" Width="*">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<ComboBox Name="GroupFilterOperators" Items="{Binding Operators}" SelectionChanged="ComboBoxSelectChanged" HorizontalAlignment="Stretch"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+						<DataGridTemplateColumn Header="Value" Width="*">
+							<DataGridTemplateColumn.CellTemplate>
+								<DataTemplate>
+									<TextBox Name="GroupFilterValue" Text="{Binding FilterVal}" Watermark="{Binding Example}" IsEnabled="{Binding IsValueInputSupported}"/>
+								</DataTemplate>
+							</DataGridTemplateColumn.CellTemplate>
+						</DataGridTemplateColumn>
+					</DataGrid.Columns>
+				</DataGrid>
+				<Grid Grid.Row="1" Grid.Column="0" RowDefinitions="*" ColumnDefinitions="*, *, *">
+					<Button Name="GroupFilterAND" Classes="button2" IsEnabled="False" Click="AddFilterAND" CommandParameter="Group" Content="AND" Grid.Row="0" Grid.Column="0"/>
+					<Button Name="GroupFilterOR" Classes="button2" IsEnabled="False" Click="AddFilterOR" CommandParameter="Group" Content="OR" Grid.Row="0" Grid.Column="1"/>
+					<Button Name="GroupFilterPop" Classes="button2" IsEnabled="False" Click="PopBackFilter" CommandParameter="Group" Content="PopBack" Grid.Row="0" Grid.Column="2"/>
+				</Grid>
+			</Grid>
+		</Expander>
+		<Expander Header="Your Requests" Grid.Row="1" Grid.Column="3" ExpandDirection="Up" HorizontalContentAlignment="Center">
+			<ListBox Name="RequestList" Items="{Binding Requests}" SelectionChanged="TableSelected" SelectionMode="Multiple">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding Name}"/>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</Expander>
+		<TextBox Name="RequestName"  Watermark="Request Name" KeyUp="RequestNameChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"/>
+		<Button Name="Accept" Classes="button2" Click="AddRequest" IsEnabled="False" Content="Accept" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"/>
+		<Button Command="{Binding $parent[Window].DataContext.OpenDataBaseViewer}" Classes="button" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Content="Back to DB Viewer"/>
+	</Grid>
 	
 </UserControl>
